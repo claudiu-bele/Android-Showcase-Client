@@ -1,0 +1,146 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "dk.claudiub.babbeltest"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.5"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:2.5"
+    androidTestImplementation "com.squareup.leakcanary:leakcanary-android-no-op:2.5"
+
+    // region core
+    // region Testing
+
+    // https://developer.android.com/training/testing/unit-testing/local-unit-tests
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:${versions.test.junit}"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin}"
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.3.0'
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:${versions.test.mockito}"
+
+    // Optional - Stronger assertions, https://truth.dev/
+    testImplementation "com.google.truth:truth:1.0"
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0'
+
+    androidTestImplementation 'androidx.test:core:1.3.0'
+    androidTestImplementation 'androidx.test:core-ktx:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.2'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+
+    def KOTLIN_COROUTINES_VERSION = '1.3.9'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLIN_COROUTINES_VERSION"
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:${versions.koin}"
+
+    def arch_version = "2.1.0"
+    // optional - Test helpers for LiveData
+    testImplementation "androidx.arch.core:core-testing:$arch_version"
+
+    //endregion
+
+    // region Retrofit (net)
+
+    // Gson + Retrofit
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    api 'com.squareup.retrofit2:converter-gson:2.6.2'
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.retrofit2:converter-scalars:2.1.0'
+
+    // endregion
+
+    // region Koin (DI)
+
+    // Core Features
+    // Koin for Kotlin
+    api "org.koin:koin-core:${versions.koin}"
+    // Koin extended & experimental features
+    api "org.koin:koin-core-ext:${versions.koin}"
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:${versions.koin}"
+    // Koin for Java developers
+    api "org.koin:koin-java:${versions.koin}"
+
+    // ANDROID X
+    // Koin AndroidX Scope features
+    api "org.koin:koin-androidx-scope:${versions.koin}"
+    // Koin AndroidX ViewModel features
+    api "org.koin:koin-androidx-viewmodel:${versions.koin}"
+    // Koin AndroidX Experimental features
+    api "org.koin:koin-androidx-ext:${versions.koin}"
+
+    // endregion
+
+    // region Kotlin (+ Android)
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    // see core packages here https://developer.android.com/kotlin/ktx#core-packages
+    api 'androidx.core:core-ktx:1.3.2@aar'
+    // endregion
+
+    // region UI + lifecycle
+    api 'androidx.appcompat:appcompat:1.2.0@aar'
+
+    def nav_version = "1.0.0"
+    api "android.arch.navigation:navigation-fragment-ktx:$nav_version"
+    api "android.arch.navigation:navigation-ui-ktx:$nav_version"
+
+    def lifecycle_version = "2.2.0"
+    // ViewModel and LiveData
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    // UI
+    api 'androidx.constraintlayout:constraintlayout:2.0.3'
+    api 'com.google.android.material:material:1.3.0-alpha03'
+
+    api 'com.sothree.slidinguppanel:library:3.4.0'
+    //endregion
+
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+    // endregion
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+
+}

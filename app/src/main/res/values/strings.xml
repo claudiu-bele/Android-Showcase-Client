@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Language game</string>
+    <string name="game__right">Correct</string>
+    <string name="game__wrong">Wrong</string>
+    <string name="game__score">Score : %1$d</string>
+    <string name="game__equals">means</string>
+</resources>
