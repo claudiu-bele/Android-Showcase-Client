@@ -10,10 +10,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        if(supportFragmentManager.backStackEntryCount == 0) {
+        if(supportFragmentManager.fragments.isEmpty()) {
             supportFragmentManager.beginTransaction()
                 .add(binding.container.id, GameFragment(), "game")
-                .addToBackStack("game")
                 .commit()
         }
     }
