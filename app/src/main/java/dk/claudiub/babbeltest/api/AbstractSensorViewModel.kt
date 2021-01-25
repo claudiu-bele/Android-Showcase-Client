@@ -20,7 +20,9 @@ data class SensorHistoricReading<T : Any>(
  * access to any capability we are looking for (accelerometer, gps, gyroscope, heartbeat, etc)
  *
  */
-abstract class AbstractSensorViewModel<T : Any> : ViewModel() {
+abstract class AbstractSensorViewModel<T : Any, Config : Any> : ViewModel() {
+
+    abstract var config: Config;
 
     // region data
     /** When app is started

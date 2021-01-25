@@ -4,6 +4,6 @@
     <string name="game__wrong">Wrong</string>
     <string name="game__score">Score : %1$d</string>
     <string name="game__equals">means</string>
-    <string name="accelerometer_format">Accelerometer data\n x: %1$.2f\ny: %2$.2f\nz: %3$.2f</string>
+    <string name="accelerometer_format">Accelerometer data\nx: %1$.2f\ny: %2$.2f\nz: %3$.2f</string>
     <string name="accelerometer_format_mock">Accelerometer data\r\n x: 1.24441,y: 1.242151,z: 0.32141</string>
 </resources>

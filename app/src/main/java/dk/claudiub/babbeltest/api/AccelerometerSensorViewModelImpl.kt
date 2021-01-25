@@ -5,22 +5,22 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.core.util.TimeUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AccelerometerSensorViewModelImpl(val context: Context) : AccelerometerSensorViewModel(), SensorEventListener {
+class AccelerometerSensorViewModelImpl(val context: Context, cfg: AccelerometerCfg)
+    : AccelerometerSensorViewModel(cfg), SensorEventListener {
 
     private var accelerometerHistory: ArrayList<SensorHistoricReading<AccelerometerData>> = ArrayList()
     private var lastItem : AccelerometerData? = null;
     private var accelerometer: Sensor? = null
 
-    var lastItemLiveData: MutableLiveData<AccelerometerData>
+    private var lastItemLiveData: MutableLiveData<AccelerometerData>
         = MutableLiveData(lastItem)
-    var startedLiveData = MutableLiveData<Boolean>(false)
-    var accelerometerHistoryLiveData: MutableLiveData<List<SensorHistoricReading<AccelerometerData>>>
+    private var startedLiveData = MutableLiveData<Boolean>(false)
+    private var accelerometerHistoryLiveData: MutableLiveData<List<SensorHistoricReading<AccelerometerData>>>
         = MutableLiveData(accelerometerHistory)
 
     init {
@@ -46,10 +46,7 @@ class AccelerometerSensorViewModelImpl(val context: Context) : AccelerometerSens
             // success! we have an accelerometer
 
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            // the delay setting and others will in a future version be passed through another generic
-            // such that AbstractSensorViewModel<T : Any, Config: Any>, and that Config for the accelerometer
-            // vm will have the desired sensor delay
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            sensorManager.registerListener(this, accelerometer, config.sensorDelay);
         } else {
             // would post to an error live data
         }
@@ -66,7 +63,7 @@ class AccelerometerSensorViewModelImpl(val context: Context) : AccelerometerSens
             lastItemLiveData.postValue(accData);
 
             accelerometerHistory.add(0, historicReading)
-            if(accelerometerHistory.size > 20) {
+            if(accelerometerHistory.size > config.maxItemsInStack) {
                 accelerometerHistory.removeAt(accelerometerHistory.lastIndex)
             }
             accelerometerHistoryLiveData.postValue(accelerometerHistory)
