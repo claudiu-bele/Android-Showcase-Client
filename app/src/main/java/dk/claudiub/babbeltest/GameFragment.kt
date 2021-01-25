@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
+import dk.claudiub.babbeltest.api.AccelerometerSensorViewModel
 import dk.claudiub.babbeltest.api.GameViewModel
 import dk.claudiub.babbeltest.api_impl.GameViewModelImpl
 import dk.claudiub.babbeltest.core.AsyncResource
@@ -22,6 +23,7 @@ class GameFragment : Fragment() {
     lateinit var binding: FragmentGameBinding
 
     val gameVm :GameViewModel by sharedViewModel()
+    val accelerometerVm :AccelerometerSensorViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,15 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        accelerometerVm.getLastEntry().observe(viewLifecycleOwner, Observer {
+            val text = if(it == null) {
+                ""
+            } else {
+                requireContext().getString(R.string.accelerometer_format, it.x, it.y, it.z)
+            }
+            binding.accData.text = text;
+        })
+
         gameVm.getHighScoreLiveData().observe(viewLifecycleOwner, Observer {
             val score = it ?: 0
             binding.score.text = requireContext().getString(R.string.game__score, score)

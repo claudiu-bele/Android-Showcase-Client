@@ -9,6 +9,15 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
+        <TextView
+            android:id="@+id/acc_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/accelerometer_format_mock"/>
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/translation_card"
             android:layout_width="wrap_content"
