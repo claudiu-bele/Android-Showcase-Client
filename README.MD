@@ -2,12 +2,18 @@
 (slightly adapting it to showcase sensor handling due to some personal issues appearing and having to
 cut corners, I'd rather have a conversation with a white-board in front of us)
 
-Hey, this is Claudiu 👋 I played with this idea with a few goals in mind
-- playing around more with coroutines, making the async functionality easily adaptable and testable
-- brainstorming some inter-"process"(or use case) communications and where to hold that logic
-    - e.g. even though you have functions `x` and `y`, they might both use `z` for cached data
-    - there's multiple paths one can follow
-- making testing possible through coroutines
+# Sensor-specific info
+
+Check out
+- `AbstractSensorViewModel` for the base sensor VM. It has 2 generics, T for the type of data
+and Config for the type of Sensor config we want to set up the sensor with.
+- `AccelerometerSensorViewModel` for the abstract Accelerometer VM. It defines the T and Config for the VM.
+A bonus with doing this is we can use this as a base class to mock the sensor for testing purposes
+- `AccelerometerSensorViewModelImpl` for the implemented Accelerometer VM.
+- `Modules` for the the koin DI tree
+- `GameFragment` for the UI that uses `AccelerometerSensorViewModel` (it doens't care about the implementation)
+
+Everything beyond is about the overall architecture and testing
 
 ### Architecture:
 - (Not implemented in here): If app exists in multiple processes, use Intents to communicate between them, and wrap data in
