@@ -22,6 +22,6 @@ object Modules {
 
         single <TranslationsUseCase> { GsonTranslationsUseCase(get(), get(), get())}
         single <TranslationsRepository> {TranslationsRepositoryImpl(get())}
-        viewModel {GameViewModelImpl(get(), get())}
+        viewModel<GameViewModel> {GameViewModelImpl(get(), get())}
     }
 }

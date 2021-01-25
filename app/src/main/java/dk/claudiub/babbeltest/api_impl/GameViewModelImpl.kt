@@ -19,7 +19,7 @@ import kotlin.random.Random
 class GameViewModelImpl(
     val dispatcherProvider: DispatcherProvider,
     val translationsRepository: TranslationsRepository
-) : GameViewModel, ViewModel() {
+) : GameViewModel() {
 
 
 

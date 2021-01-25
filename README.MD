@@ -1,4 +1,7 @@
 # Android Architecture through a language game
+(slightly adapting it to showcase sensor handling due to some personal issues appearing and having to
+cut corners, I'd rather have a conversation with a white-board in front of us)
+
 Hey, this is Claudiu 👋 I played with this idea with a few goals in mind
 - playing around more with coroutines, making the async functionality easily adaptable and testable
 - brainstorming some inter-"process"(or use case) communications and where to hold that logic
@@ -6,32 +9,9 @@ Hey, this is Claudiu 👋 I played with this idea with a few goals in mind
     - there's multiple paths one can follow
 - making testing possible through coroutines
 
-Status:
- DONE: 
-    - Architecture + tests (use case, repo, vm) implemented. 
-    - ViewModel responsible for game state thoroughly tested
-    - Game implemented
-
-#### Description
-The task is to write a small language game. The player will see a word in language „one“ on the 
-screen. While this word is displayed, a word in language „two“ will fall down on the screen. The 
-player will have to choose if the falling word is the correct translation or a wrong translation. 
-The player needs to answer, before the word reaches the bottom of the screen. Include a counter 
-that gives the player feedback.
-
-- Room for creativity
-It is up to the applicant to implement how the player chooses correct or wrong. Also when or if a 
-game ends. In what way correct/wrong/no answer is counted can also be freely chosen, but there must 
-be some visual feedback.
-
-## Architecture and setup
-Still WIP, brainstorming more details
-
-### Needs (beyond hello world):
-- caching data from repository
-- abstract getting the data so retrofit not needed at definition level
-
 ### Architecture:
+- (Not implemented in here): If app exists in multiple processes, use Intents to communicate between them, and wrap data in
+LiveData, Flow or RX observables to match communication patterns on UI side
 - Interfaces and abstraction as much as possible to be able to swap implementations in all places 
 easily
 - Actual architecture (Use cases, Repos and View Models all have base interface definitions that then get implemented):
