@@ -1,6 +1,4 @@
-# Android Architecture through a language game
-(slightly adapting it to showcase sensor handling due to some personal issues appearing and having to
-cut corners, I'd rather have a conversation with a white-board in front of us)
+# Android Architecture through a game + sensor logic
 
 # Sensor-specific info
 
